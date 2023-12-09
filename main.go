@@ -7,7 +7,7 @@ import (
 
 func main() {
 	genereteArray("")
-	fmt.Println("Hello, world")
+	fmt.Println("Hello, world from zhan66")
 }
 
 type pair struct {
