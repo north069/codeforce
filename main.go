@@ -10,6 +10,14 @@ func main() {
 	fmt.Println("Hello, world from zhan66")
 }
 
+func climbStairs(n int) int {
+	last, now := 0, 1
+	for i := 1; i <= n; i++ {
+		last, now = now, last+now
+	}
+	return now
+}
+
 type pair struct {
 	Size   int
 	Prefer int
