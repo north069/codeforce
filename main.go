@@ -7,7 +7,7 @@ import (
 
 func main() {
 	genereteArray("")
-	fmt.Println("Hello, world from zhan66")
+	fmt.Println()
 }
 
 func climbStairs(n int) int {
