@@ -74,3 +74,14 @@ package main
 
 //func (h *dijkstraHeap) push(v dijkstraPair) { heap.Push(h, v) }
 //func (h *dijkstraHeap) pop() dijkstraPair   { return heap.Pop(h).(dijkstraPair) }
+
+//func floyd(dist [][]int) [][]int {
+//	for k := range dist {
+//		for i := range dist {
+//			for j := range dist {
+//				dist[i][j] = min(dist[i][j], dist[i][k]+dist[k][j])
+//			}
+//		}
+//	}
+//	return dist
+//}
