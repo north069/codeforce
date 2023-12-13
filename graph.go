@@ -85,3 +85,51 @@ package main
 //	}
 //	return dist
 //}
+
+// tarjan求桥
+//func findBridge(n int, edge [][]int) [][]int {
+//	type neighbor struct{ to, eid int }
+//	g := make([][]neighbor, n)
+//	for i := range g {
+//		g[i] = make([]neighbor, 0)
+//	}
+//	for i, v := range edge {
+//		g[v[0]] = append(g[v[0]], neighbor{v[1], i})
+//		g[v[1]] = append(g[v[1]], neighbor{v[0], i})
+//	}
+//	dfn := make([]int, n)
+//	isBridge := make([]bool, len(edge))
+//	time := 0
+//	var tarjan func(v int, eid int) int
+//	tarjan = func(v int, fid int) int { //使用fid而不是fa用来避免重边
+//		time++
+//		dfn[v] = time
+//		lowV := time
+//		for _, e := range g[v] {
+//			w := e.to
+//			if dfn[w] == 0 {
+//				lowW := tarjan(w, e.eid)
+//				lowV = min(lowW, lowV)
+//				if lowW > dfn[v] { //以w为根的子树中没有返回来的边可以到v，所以v-w一定是桥
+//					isBridge[e.eid] = true
+//				}
+//			} else if e.eid != fid { //
+//				lowV = min(lowV, dfn[w])
+//			}
+//		}
+//		return lowV
+//	}
+//	for v, timestamp := range dfn {
+//		if timestamp == 0 {
+//			tarjan(v, -1)
+//		}
+//	}
+//
+//	res := make([][]int, 0)
+//	for i, v := range isBridge {
+//		if v {
+//			res = append(res, edge[i])
+//		}
+//	}
+//	return res
+//}
