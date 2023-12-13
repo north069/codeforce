@@ -10,7 +10,6 @@ func main() {
 	fmt.Println()
 }
 
-<<<<<<< HEAD
 func distinctSequences(n int) int {
 	if n == 1 {
 		return 6
@@ -71,14 +70,15 @@ func unique(nums []int) []int {
 		}
 	}
 	return res[:k+1]
-=======
+}
+
 func climbStairs(n int) int {
 	last, now := 0, 1
 	for i := 1; i <= n; i++ {
 		last, now = now, last+now
 	}
 	return now
->>>>>>> f2a32a6d05960f03fff65ef013de67e479c63664
+
 }
 
 type pair struct {
