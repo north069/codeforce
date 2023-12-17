@@ -6,44 +6,51 @@ import (
 	"os"
 )
 
+// 10 5 10 9 6 9 8 9 5
 func main() {
-	var n int
+	var T int
 	in := bufio.NewReader(os.Stdin)
-	fmt.Fscan(in, &n)
-	res := ""
-	for i := 0; i < n; i++ {
-		var s string
-		var pos int
-		fmt.Fscan(in, &s, &pos)
-		now := len(s)
-		cnt := 0
-		for pos > now {
-			pos -= now
-			now--
-			cnt++
+	fmt.Fscan(in, &T)
+	res := make([]int, T)
+	for i := 0; i < T; i++ {
+		var n int
+		fmt.Fscan(in, &n)
+		nums := make([]int, n)
+		for i := range nums {
+			fmt.Fscan(in, &nums[i])
 		}
-		st := make([]int, 0)
-		for j, v := range s {
-			for cnt > 0 && len(st) > 0 && v < rune(s[st[len(st)-1]]) {
-				st = st[:len(st)-1]
-				cnt--
+		inc := make([]int, n)
+		for i := n - 2; i >= 0; i-- {
+			if nums[i] < nums[i+1] {
+				inc[i] = inc[i+1]
+			} else {
+				inc[i] = inc[i+1] + 1
 			}
-			st = append(st, j)
 		}
-		res += string(s[st[pos-1]])
+		res[i] = inc[0]
+		pre := 1
+		for j := 1; j < n; j++ {
+			res[i] = min(res[i], pre+inc[j])
+			if nums[j] >= nums[j-1] {
+				pre++
+			}
+		}
+		res[i] = min(res[i], pre)
 	}
-	fmt.Println(res)
+	for _, v := range res {
+		fmt.Println(v)
+	}
 }
 
 //aadba
 
-//func max(i, j int) int {
-//	if i > j {
-//		return i
-//	} else {
-//		return j
+//	func max(i, j int) int {
+//		if i > j {
+//			return i
+//		} else {
+//			return j
+//		}
 //	}
-//}
 //func min(i, j int) int {
 //	if i > j {
 //		return j

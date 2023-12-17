@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 )
 
@@ -10,55 +11,24 @@ func main() {
 	fmt.Println()
 }
 
-func distinctSequences(n int) int {
-	if n == 1 {
-		return 6
-	}
-	const mod int = 1e9 + 7
-	dp := make([][][]int, n)
-	for i := range dp {
-		dp[i] = make([][]int, 6)
-		for j := range dp[i] {
-			dp[i][j] = make([]int, 6)
-		}
-	}
-	//1:23456  2:135  3:1245  4:135  5:12346  6:15
-	m := [6]map[int]bool{
-		{1: true, 2: true, 3: true, 4: true, 5: true},
-		{0: true, 2: true, 4: true},
-		{0: true, 1: true, 3: true, 4: true},
-		{0: true, 2: true, 4: true},
-		{1: true, 2: true, 3: true, 0: true, 5: true},
-		{0: true, 4: true},
-	}
-	for i := 0; i < 6; i++ {
-		for last := 0; last < 6; last++ {
-			if m[last][i] {
-				dp[1][last][i] = 1
-			}
-		}
-	}
-	for i := 2; i < n; i++ {
-		for last1 := 0; last1 < 6; last1++ {
-			for last2 := 0; last2 < 6; last2++ {
-				for j := 0; j < 6; j++ {
-					if j != last2 && m[j][last1] {
-						dp[i][j][last1] += dp[i-1][last1][last2]
-						dp[i][j][last1] %= mod
-					}
-				}
-			}
-		}
-	}
-	res := 0
-	for i := 0; i < 6; i++ {
-		for j := 0; j < 6; j++ {
-			res += dp[n-1][i][j]
-			res %= mod
-		}
-	}
-	return res
+type pair struct {
+	N int
+	C int
 }
+
+//type Heap []pair
+//
+//func (h Heap) Len() int { return len(h) }
+//func (h Heap) Less(i, j int) bool {
+//	return h[i].V < h[j].V
+//}
+//func (h Heap) Swap(i, j int)       { h[i], h[j] = h[j], h[i] }
+//func (h *Heap) Push(x interface{}) { *h = append(*h, x.(pair)) }
+//func (h *Heap) Pop() interface{} {
+//	x := (*h)[len(*h)-1]
+//	*h = (*h)[:len(*h)-1]
+//	return x
+//}
 
 func unique(nums []int) []int {
 	res := make([]int, len(nums))
@@ -72,37 +42,21 @@ func unique(nums []int) []int {
 	return res[:k+1]
 }
 
-func climbStairs(n int) int {
-	last, now := 0, 1
+// 返回整个数组到v的距离
+// 求前缀和
+func getArrDis(nums []int, v int) int {
+	n := len(nums)
+	pre := make([]int, n+1)
 	for i := 1; i <= n; i++ {
-		last, now = now, last+now
+		pre[i] = pre[i-1] + nums[i-1]
 	}
-	return now
-
-}
-
-type pair struct {
-	I int
-	V int
-}
-type Heap []pair
-
-func (h Heap) Len() int { return len(h) }
-func (h Heap) Less(i, j int) bool {
-	return h[i].V < h[j].V
-}
-func (h Heap) Swap(i, j int)       { h[i], h[j] = h[j], h[i] }
-func (h *Heap) Push(x interface{}) { *h = append(*h, x.(pair)) }
-func (h *Heap) Pop() interface{} {
-	x := (*h)[len(*h)-1]
-	*h = (*h)[:len(*h)-1]
-	return x
-}
-
-type Q struct {
-	X int
-	Y int
-	I int
+	getDis := func(v int) int {
+		i := sort.SearchInts(nums, v)
+		res := i*v - pre[i]
+		res += pre[n] - pre[i] - v*(n-i)
+		return res
+	}
+	return getDis(v)
 }
 
 func getBit(v int64) int {
@@ -145,6 +99,16 @@ type ListNode struct {
 	Next *ListNode
 }
 
+// 让数组相等的最小代价
+func LetNumsEqual(nums []int) int {
+	sort.Ints(nums)
+	res := 0
+	n := len(nums)
+	for i := 0; i < n; i++ {
+		res += abs(nums[i] - nums[n/2])
+	}
+	return res
+}
 func abs(i int) int {
 	if i < 0 {
 		return -i
@@ -158,6 +122,8 @@ func gcd(a, b int) int {
 		return gcd(b, a%b)
 	}
 }
+
+// 字符串反转
 func reverse(num string) string {
 	temp := []byte(num)
 	left, right := 0, len(num)-1
@@ -200,6 +166,31 @@ func invM(a, m int) int {
 		return -1
 	}
 	return (x%m + m) % m
+}
+
+// 按顺序生成1到1e9+1的回文数
+func getPalArr() []int {
+	pal := make([]int, 0, 109999)
+	for base := 1; base <= 10000; base *= 10 {
+		for i := base; i < base*10; i++ {
+			x := i
+			for t := i / 10; t > 0; t /= 10 {
+				x = x*10 + t%10
+			}
+			pal = append(pal, x)
+		}
+		if base <= 1000 {
+			for i := base; i < base*10; i++ {
+				x := i
+				for t := i; t > 0; t /= 10 {
+					x = x*10 + t%10
+				}
+				pal = append(pal, x)
+			}
+		}
+	}
+	pal = append(pal, 1_000_000_001)
+	return pal
 }
 
 // 生成数组测试数据
