@@ -16,20 +16,7 @@ type pair struct {
 	C int
 }
 
-//type Heap []pair
-//
-//func (h Heap) Len() int { return len(h) }
-//func (h Heap) Less(i, j int) bool {
-//	return h[i].V < h[j].V
-//}
-//func (h Heap) Swap(i, j int)       { h[i], h[j] = h[j], h[i] }
-//func (h *Heap) Push(x interface{}) { *h = append(*h, x.(pair)) }
-//func (h *Heap) Pop() interface{} {
-//	x := (*h)[len(*h)-1]
-//	*h = (*h)[:len(*h)-1]
-//	return x
-//}
-
+// 数组原地去重
 func unique(nums []int) []int {
 	res := make([]int, len(nums))
 	k := -1
@@ -59,6 +46,7 @@ func getArrDis(nums []int, v int) int {
 	return getDis(v)
 }
 
+// 求数的二进制位数
 func getBit(v int64) int {
 	if v == 0 {
 		return 1
@@ -71,6 +59,7 @@ func getBit(v int64) int {
 	return res
 }
 
+// 判断是否是质数
 func isPrime(num int) bool {
 	if num <= 1 {
 		return false
