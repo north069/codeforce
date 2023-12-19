@@ -8,7 +8,7 @@ import (
 
 func main() {
 	genereteArray("")
-	fmt.Println()
+	fmt.Println(maxFrequencyScore([]int{1, 2, 6, 4}, 3))
 }
 
 type pair struct {

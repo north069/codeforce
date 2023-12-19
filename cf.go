@@ -3,43 +3,67 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
+	"math/bits"
 	"os"
 )
 
 // 10 5 10 9 6 9 8 9 5
 func main() {
-	var T int
+	var n int
 	in := bufio.NewReader(os.Stdin)
-	fmt.Fscan(in, &T)
-	res := make([]int, T)
-	for i := 0; i < T; i++ {
-		var n int
-		fmt.Fscan(in, &n)
-		nums := make([]int, n)
-		for i := range nums {
-			fmt.Fscan(in, &nums[i])
-		}
-		inc := make([]int, n)
-		for i := n - 2; i >= 0; i-- {
-			if nums[i] < nums[i+1] {
-				inc[i] = inc[i+1]
-			} else {
-				inc[i] = inc[i+1] + 1
+	fmt.Fscan(in, &n)
+	bit, nums := getB(n)
+	mask := 1<<bit - 1
+
+	var dfs func(mask int) int
+	dfs = func(mask int) int {
+		p := 1
+		sum := 0
+		last := 0
+		for i := 0; i < bit; i++ {
+			if mask>>i&1 == 1 {
+				last = nums[i]
+				sum += p * nums[i]
+				p *= 10
 			}
 		}
-		res[i] = inc[0]
-		pre := 1
-		for j := 1; j < n; j++ {
-			res[i] = min(res[i], pre+inc[j])
-			if nums[j] >= nums[j-1] {
-				pre++
+		if last == 0 {
+			return 0
+		}
+		if int(math.Sqrt(float64(sum)))*int(math.Sqrt(float64(sum))) == sum {
+			return bits.OnesCount(uint(mask))
+		}
+		res := 0
+		for i := 0; i < bit; i++ {
+			if mask>>i&1 == 1 {
+				res = max(res, dfs(mask^(1<<i)))
 			}
 		}
-		res[i] = min(res[i], pre)
+		return res
 	}
-	for _, v := range res {
-		fmt.Println(v)
+	res := dfs(mask)
+	if res == 0 {
+		fmt.Println(-1)
+	} else {
+		fmt.Println(bit - res)
 	}
+}
+func getB(n int) (int, []int) {
+	res := 0
+	nums := make([]int, 0)
+	for n > 0 {
+		nums = append(nums, n%10)
+		n /= 10
+		res++
+	}
+	return res, nums
+}
+func max(i, j int) int {
+	if i > j {
+		return i
+	}
+	return j
 }
 
 //aadba
