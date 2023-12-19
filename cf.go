@@ -3,61 +3,45 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"math"
-	"math/bits"
 	"os"
 )
 
 // 10 5 10 9 6 9 8 9 5
 func main() {
-	var n int
+	var n, m int
 	in := bufio.NewReader(os.Stdin)
-	fmt.Fscan(in, &n)
-	bit, nums := getB(n)
-	mask := 1<<bit - 1
+	fmt.Fscan(in, &n, &m)
+	a, b := make([]int, n), make([]int, m)
+	for i := range a {
+		fmt.Fscan(in, &a[i])
+	}
+	for i := range b {
+		fmt.Fscan(in, &b[i])
+	}
 
-	var dfs func(mask int) int
-	dfs = func(mask int) int {
-		p := 1
-		sum := 0
-		last := 0
-		for i := 0; i < bit; i++ {
-			if mask>>i&1 == 1 {
-				last = nums[i]
-				sum += p * nums[i]
-				p *= 10
+	check := func(span int) bool {
+		j := 0
+		for _, v := range a {
+			for j < m && !(v <= b[j]+span && v >= b[j]-span) {
+				j++
+			}
+			if j == m {
+				return false
 			}
 		}
-		if last == 0 {
-			return 0
-		}
-		if int(math.Sqrt(float64(sum)))*int(math.Sqrt(float64(sum))) == sum {
-			return bits.OnesCount(uint(mask))
-		}
-		res := 0
-		for i := 0; i < bit; i++ {
-			if mask>>i&1 == 1 {
-				res = max(res, dfs(mask^(1<<i)))
-			}
-		}
-		return res
+		return true
 	}
-	res := dfs(mask)
-	if res == 0 {
-		fmt.Println(-1)
-	} else {
-		fmt.Println(bit - res)
+
+	l, r := 0, 2000000000
+	for l < r {
+		mid := (l + r) / 2
+		if check(mid) {
+			r = mid
+		} else {
+			l = mid + 1
+		}
 	}
-}
-func getB(n int) (int, []int) {
-	res := 0
-	nums := make([]int, 0)
-	for n > 0 {
-		nums = append(nums, n%10)
-		n /= 10
-		res++
-	}
-	return res, nums
+	fmt.Println(l)
 }
 func max(i, j int) int {
 	if i > j {
