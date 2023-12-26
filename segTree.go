@@ -1,5 +1,6 @@
 package main
 
+//区间修改，区间查询线段树
 //type segTree struct {
 //	Tree map[int]bool
 //	Lazy map[int]bool
@@ -46,81 +47,33 @@ package main
 //	return left && right
 //}
 
-//是否存在的动态线段树
+//单点修改，区间查询线段树，不带懒标记
 //type segTree struct {
-//	Tree map[int]bool //整个区间有没有预定的
-//	Lazy map[int]bool //预定了
+//	Tree []int
 //}
 //
-////idx从1开始， 左子树idx*2， 右子树idx*2+1
-//
-//func (t *segTree) query(start, end int, l, r int, idx int) bool {
-//	if start > r || end < l { //没有重叠
-//		return false
-//	}
-//	if t.Lazy[idx] { //访问过
-//		return true
-//	}
-//	if l <= start && end <= r { //完全包含，直接返回
-//		return t.Tree[idx]
-//	}
-//	mid := (start + end) >> 1
-//	left := t.query(start, mid, l, r, idx*2)
-//	right := t.query(mid+1, end, l, r, idx*2+1)
-//	return left || right
-//}
-//func (t *segTree) update(start, end int, l, r int, idx int) bool {
-//	if start > r || end < l { //没有重叠
-//		return false
-//	}
-//	if l <= start && end <= r { //完全包含，直接返回
-//		t.Lazy[idx] = true
-//		t.Tree[idx] = true
-//		return true
-//	}
-//	mid := (start + end) >> 1
-//	left := t.update(start, mid, l, r, idx*2)
-//	right := t.update(mid+1, end, l, r, idx*2+1)
-//	t.Tree[idx] = left || right
-//	return t.Tree[idx]
-//}
-
-//带延迟标记的线段树
-//type MyCalendarTwo struct {
-//	ST segTree
-//}
-//
-//func Constructor() MyCalendarTwo {
-//	return MyCalendarTwo{ST: segTree{map[int]int{}, map[int]int{}}}
-//}
-//
-//func (this *MyCalendarTwo) Book(start int, end int) bool {
-//	this.ST.update(1, 1e9, start, end-1, 1, 1)
-//	if this.ST.Tree[1] > 2 {
-//		this.ST.update(1, 1e9, start, end-1, 1, -1)
-//		return false
-//	}
-//	return true
-//}
-//
-//type segTree struct {
-//	Tree map[int]int
-//	Lazy map[int]int
-//}
-//
-//func (t *segTree) update(start, end int, l, r int, idx int, val int) {
-//	if start > r || end < l {
+//func (s *segTree) add(l, r, start, end, idx, val int) {
+//	if l > end || r < start {
 //		return
 //	}
-//	if l <= start && end <= r {
-//		t.Lazy[idx] += val //这里lazy加了值，子节点不一定加上了
-//		t.Tree[idx] += val
+//	if l >= start && r <= end {
+//		s.Tree[idx] = max(s.Tree[idx], val)
 //		return
 //	}
-//	mid := (start + end) >> 1
-//	t.update(start, mid, l, r, idx*2, val)
-//	t.update(mid+1, end, l, r, idx*2+1, val)
-//	t.Tree[idx] = t.Lazy[idx] + max(t.Tree[idx*2], t.Tree[idx*2+1])		//下面返回的+下面因为Lazy没加的
+//	mid := (l + r) >> 1
+//	s.add(l, mid, start, end, idx*2, val)
+//	s.add(mid+1, r, start, end, idx*2+1, val)
+//	s.Tree[idx] = max(s.Tree[idx*2], s.Tree[idx*2+1])
+//}
+//func (s *segTree) query(l, r, start, end, idx int) int {
+//	if l > end || r < start {
+//		return 0
+//	}
+//	if l >= start && r <= end {
+//		return s.Tree[idx]
+//	}
+//	mid := (l + r) >> 1
+//	return max(s.query(l, mid, start, end, idx*2), s.query(mid+1, r, start, end, idx*2+1))
 //}
 
 //type fenwick []int

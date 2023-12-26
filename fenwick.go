@@ -1,5 +1,6 @@
 package main
 
+// 区间和树状数组，单点修改，区间查询
 //type fenwick []int
 //
 //func newFenwickTree(n int) fenwick {

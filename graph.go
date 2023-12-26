@@ -133,3 +133,15 @@ package main
 //	}
 //	return res
 //}
+
+//O(n3) floyd求全源最短路
+//func floyd(dist [][]int) [][]int {
+//	for k := range dist {
+//		for i := range dist {
+//			for j := range dist {
+//				dist[i][j] = min(dist[i][j], dist[i][k]+dist[k][j])
+//			}
+//		}
+//	}
+//	return dist
+//}

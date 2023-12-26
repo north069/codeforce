@@ -6,65 +6,44 @@ import (
 	"os"
 )
 
-// 10 5 10 9 6 9 8 9 5
 func main() {
-	var n, m int
 	in := bufio.NewReader(os.Stdin)
-	fmt.Fscan(in, &n, &m)
-	a, b := make([]int, n), make([]int, m)
-	for i := range a {
-		fmt.Fscan(in, &a[i])
-	}
-	for i := range b {
-		fmt.Fscan(in, &b[i])
-	}
-
-	check := func(span int) bool {
-		j := 0
-		for _, v := range a {
-			for j < m && !(v <= b[j]+span && v >= b[j]-span) {
-				j++
-			}
-			if j == m {
-				return false
-			}
+	var T int
+	fmt.Fscan(in, &T)
+	for ; T > 0; T-- {
+		var n int
+		fmt.Fscan(in, &n)
+		nums := make([]int, n)
+		sum := 0
+		for i := range nums {
+			fmt.Fscan(in, &nums[i])
+			sum += nums[i]
 		}
-		return true
-	}
-
-	l, r := 0, 2000000000
-	for l < r {
-		mid := (l + r) / 2
-		if check(mid) {
-			r = mid
+		if sum%2 == 0 {
+			fmt.Println("Cat")
 		} else {
-			l = mid + 1
+			fmt.Println("Dog")
 		}
 	}
-	fmt.Println(l)
 }
+
+func solve(n int, nums [][]int) {
+
+}
+
 func max(i, j int) int {
 	if i > j {
 		return i
+	} else {
+		return j
 	}
-	return j
 }
-
-//aadba
-
-//	func max(i, j int) int {
-//		if i > j {
-//			return i
-//		} else {
-//			return j
-//		}
-//	}
-//func min(i, j int) int {
-//	if i > j {
-//		return j
-//	}
-//	return i
-//}
+func min(i, j int) int {
+	if i > j {
+		return j
+	}
+	return i
+}
 
 //a := make([]int, n)
 //for i := range a {

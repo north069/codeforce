@@ -8,12 +8,7 @@ import (
 
 func main() {
 	genereteArray("")
-	fmt.Println()
-}
-
-type pair struct {
-	N int
-	C int
+	fmt.Println(lengthOfLIS([]int{4, 2, 1, 4, 3, 4, 5, 8, 15}, 3))
 }
 
 // 数组原地去重
@@ -98,6 +93,7 @@ func LetNumsEqual(nums []int) int {
 	}
 	return res
 }
+
 func abs(i int) int {
 	if i < 0 {
 		return -i
