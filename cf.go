@@ -14,20 +14,15 @@ func main() {
 		var n int
 		fmt.Fscan(in, &n)
 		nums := make([]int, n)
-		sum := 0
 		for i := range nums {
 			fmt.Fscan(in, &nums[i])
-			sum += nums[i]
 		}
-		if sum%2 == 0 {
-			fmt.Println("Cat")
-		} else {
-			fmt.Println("Dog")
-		}
+		solve(n, nums)
 	}
 }
 
-func solve(n int, nums [][]int) {
+// 31次操作，全是正数需要19次操作，剩12次，
+func solve(n int, nums []int) {
 
 }
 
