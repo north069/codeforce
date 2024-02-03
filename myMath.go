@@ -62,6 +62,7 @@ package main
 //	}
 //	return i
 //}
+
 //func gcd(a, b int) int {
 //	if b == 0 {
 //		return a
@@ -69,7 +70,7 @@ package main
 //		return gcd(b, a%b)
 //	}
 //}
-//
+
 //// 快速幂
 //func quickPow(a, n int, mod int) int {
 //	res := 1
@@ -92,6 +93,13 @@ package main
 //	gcd, y, x = exgcd(b, a%b)
 //	y -= a / b * x
 //	return
+//}
+//func exgcd(a, b int) (int, int, int) {
+//	if b == 0 {
+//		return a, 1, 0
+//	}
+//	g, x1, y1 := exgcd(b, a%b)
+//	return g, y1, x1-a/b*y1
 //}
 //
 //// 求逆元

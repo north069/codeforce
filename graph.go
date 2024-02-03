@@ -145,3 +145,59 @@ package main
 //	}
 //	return dist
 //}
+
+// 倍增求lca，预处理O(nlogn), 求lca O(logn)
+//func doubleLca() {
+//	t := 14               //log层数
+//	f := make([][]int, n) //倍增的祖先
+//	for i := range f {
+//		f[i] = make([]int, t+1)
+//	}
+//	for i := range f[0] {
+//		f[0][i] = 0
+//	}
+//	d := make([]int, n) //点的高度
+//	bfs := func() {
+//		q := make([]int, 0)
+//		q = append(q, 0)
+//		d[0] = 1
+//		for len(q) > 0 {
+//			top := q[0]
+//			q = q[1:]
+//			for _, v := range g[top] {
+//				to := v.to
+//				if d[to] > 0 {
+//					continue
+//				}
+//				d[to] = d[top] + 1
+//				f[to][0] = top
+//				for i := 1; i <= t; i++ {
+//					f[to][i] = f[f[to][i-1]][i-1]
+//				}
+//				q = append(q, to)
+//
+//			}
+//		}
+//	}
+//	bfs()
+//	lca := func(x, y int) int {
+//		if d[x] < d[y] {
+//			x, y = y, x
+//		}
+//		for i := t; i >= 0; i-- {
+//			if d[f[x][i]] >= d[y] {
+//				x = f[x][i] //二进制上移到同一高度
+//			}
+//		}
+//		if x == y {
+//			return x
+//		}
+//		for i := t; i >= 0; i-- {
+//			if f[x][i] != f[y][i] {
+//				x = f[x][i]
+//				y = f[y][i]
+//			}
+//		}
+//		return f[x][0]
+//	}
+//}

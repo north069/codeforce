@@ -8,21 +8,44 @@ import (
 
 func main() {
 	in := bufio.NewReader(os.Stdin)
+	out := bufio.NewWriter(os.Stdout)
 	var T int
 	fmt.Fscan(in, &T)
-	for ; T > 0; T-- {
-		var n int
-		fmt.Fscan(in, &n)
-		nums := make([]int, n)
-		for i := range nums {
-			fmt.Fscan(in, &nums[i])
-		}
-		solve(n, nums)
+	res := 0
+	type pair struct {
+		//L int
+		Not  int
+		Mask int
 	}
+	m := map[pair]int{}
+	for ; T > 0; T-- {
+		var s string
+		fmt.Fscan(in, &s)
+		now := 0
+		app := 0
+		for _, v := range s {
+			app |= 1 << int(v-'a')
+			now = now ^ (1 << int(v-'a'))
+		}
+		for i := 0; i < 26; i++ {
+			if app>>i&1 == 0 {
+				res += m[pair{i, now ^ ((1 << 26) - 1) ^ (1 << i)}]
+				m[pair{i, now}]++
+			}
+		}
+	}
+	fmt.Fprintln(out, res)
+
+	out.Flush()
 }
 
-// 31次操作，全是正数需要19次操作，剩12次，
-func solve(n int, nums []int) {
+func abs(i int) int {
+	if i < 0 {
+		return -i
+	}
+	return i
+}
+func solve(n int, nums [][]int, out *bufio.Writer) {
 
 }
 
@@ -38,13 +61,4 @@ func min(i, j int) int {
 		return j
 	}
 	return i
-}
-
-//a := make([]int, n)
-//for i := range a {
-//	fmt.Fscan(in, &a[i])
-//}
-
-type neighbor struct {
-	to, wt int
 }

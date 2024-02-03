@@ -2,7 +2,7 @@ package main
 
 import "strconv"
 
-//数位dp模板
+// 数位dp模板
 func countSpecialNumbers(n int) int {
 	str := strconv.Itoa(n)
 	m := len(str)
@@ -22,6 +22,7 @@ func countSpecialNumbers(n int) int {
 			return
 		}
 		//保存非边界的状态
+		//一定要加这个限制，不然的话会多算，不能紧贴上界
 		if !isLimit && isNum {
 			p := &memo[i][mask]
 			if *p >= 0 {

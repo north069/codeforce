@@ -93,3 +93,35 @@ package main
 //	}
 //	return res
 //}
+
+//不带懒标记的区间修改，单点查询
+//type segTree struct {
+//	Tree map[int]int
+//
+//}
+//func (t *segTree) Update(start, end int, l, r int, idx int, val int) {
+//	if start > r || end < l {
+//		return
+//	}
+//	if start == end {
+//		t.Tree[idx] += val
+//		return
+//	}
+//	mid := (start + end) >> 1
+//	t.Update(start, mid, l, r, idx*2, val)
+//	t.Update(mid+1, end, l, r, idx*2+1, val)
+//	t.Tree[idx] = t.Tree[idx*2] + t.Tree[idx*2+1]
+//}
+//
+//func (t *segTree) query(start, end int, l, r int, idx int) int {
+//	if start > r || end < l {
+//		return 0
+//	}
+//	if start == end {
+//		return t.Tree[idx]
+//	}
+//	mid := (start + end) >> 1
+//	left := t.query(start, mid, l, r, idx*2)
+//	right := t.query(mid+1, end, l, r, idx*2+1)
+//	return left + right
+//}

@@ -1,7 +1,8 @@
 package main
 
-// 数组原地去重
+// 数组原地排序去重
 //func unique(nums []int) []int {
+//	sort.Ints(nums)
 //	res := make([]int, len(nums))
 //	k := -1
 //	for _, v := range nums {
@@ -36,7 +37,7 @@ package main
 //	res := 0
 //	n := len(nums)
 //	for i := 0; i < n; i++ {
-//		res += abs(nums[i] - nums[n/2])
+//		res += nums[i] - nums[i/2]
 //	}
 //	return res
 //}
@@ -51,4 +52,52 @@ package main
 //		right--
 //	}
 //	return string(temp)
+//}
+
+//kmp匹配
+//func buildKMPTable(pattern string) []int {
+//	table := make([]int, len(pattern))
+//	j := 0
+//
+//	for i := 1; i < len(pattern); i++ {
+//		if pattern[i] == pattern[j] {
+//			j++
+//			table[i] = j
+//		} else {
+//			if j != 0 {
+//				j = table[j-1]
+//				i--
+//			} else {
+//				table[i] = 0
+//			}
+//		}
+//	}
+//
+//	return table
+//}
+//func kmpSearch(text, pattern string) []int {
+//	table := buildKMPTable(pattern)
+//	m, n := len(pattern), len(text)
+//	result := []int{}
+//
+//	i, j := 0, 0
+//	for i < n {
+//		if pattern[j] == text[i] {
+//			i++
+//			j++
+//		}
+//
+//		if j == m {
+//			result = append(result, i-j)
+//			j = table[j-1]
+//		} else if i < n && pattern[j] != text[i] {
+//			if j != 0 {
+//				j = table[j-1]
+//			} else {
+//				i++
+//			}
+//		}
+//	}
+//
+//	return result
 //}
