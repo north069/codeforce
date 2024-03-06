@@ -22,3 +22,28 @@ package main
 //func (f fenwick) query(l, r int) int {
 //	return f.pre(r) - f.pre(l-1)
 //}
+
+//离散化数组，最大的是1
+//func resultArray(nums []int) []int {
+//	n := len(nums)
+//	p := make([]pair, n)
+//	for i := range nums {
+//		p[i] = pair{nums[i], i}
+//	}
+//	sort.Slice(p, func(i, j int) bool {
+//		return p[i].V > p[j].V
+//	})
+//	id := make([]int, n)
+//	id[p[0].I] = 1
+//	for i := 1; i < n; i++ {
+//		if p[i].V == p[i-1].V {
+//			id[p[i].I] = id[p[i-1].I]
+//		} else {
+//			id[p[i].I] = i + 1
+//		}
+//	}
+//}
+//type pair struct {
+//	V int
+//	I int
+//}
