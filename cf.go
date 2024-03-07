@@ -12,12 +12,12 @@ func main() {
 	var T int
 	fmt.Fscan(in, &T)
 	for ; T > 0; T-- {
-		cf1194D(in, out)
+		solve(in, out)
 	}
 	out.Flush()
 }
 
-func cf1194D(in *bufio.Reader, out *bufio.Writer) {
+func solve(in *bufio.Reader, out *bufio.Writer) {
 
 }
 
