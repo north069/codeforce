@@ -135,3 +135,76 @@ package main
 //	pal = append(pal, 1_000_000_001)
 //	return pal
 //}
+
+// O(n)求所有点对的最大曼哈顿距离
+//func maxManhattanDis(points [][]int) int {
+//	maxXAY := math.MinInt
+//	minXAY := math.MaxInt
+//	maxXSY := math.MinInt
+//	minXSY := math.MaxInt
+//	for _, v := range points {
+//		maxXAY = max(maxXAY, v[0]+v[1])
+//		minXAY = min(minXAY, v[0]+v[1])
+//		maxXSY = max(maxXSY, v[0]-v[1])
+//		minXSY = min(minXSY, v[0]-v[1])
+//	}
+//	maxL := 0
+//	for _, v := range points {
+//		al := abs(v[0] + v[1] - maxXAY)
+//		bl := abs(v[0] + v[1] - minXAY)
+//		cl := abs(v[0] - v[1] - maxXSY)
+//		dl := abs(v[0] - v[1] - minXSY)
+//		t := max(max(al, bl), max(cl, dl))
+//		maxL = max(t, maxL)
+//	}
+//	return maxL
+//}
+//
+//// O(n)求所有点对的最大曼哈顿距离的最远两个点下标
+//func maxManhattanDisXY(points [][]int) (int, int) {
+//	maxXAY := math.MinInt
+//	minXAY := math.MaxInt
+//	maxXSY := math.MinInt
+//	minXSY := math.MaxInt
+//	a, b, c, d := 0, 0, 0, 0
+//	for i, v := range points {
+//		if v[0]+v[1] > maxXAY {
+//			maxXAY = v[0] + v[1]
+//			a = i
+//		}
+//		if v[0]+v[1] < minXAY {
+//			minXAY = v[0] + v[1]
+//			b = i
+//		}
+//		if v[0]-v[1] > maxXSY {
+//			maxXSY = v[0] - v[1]
+//			c = i
+//		}
+//		if v[0]-v[1] < minXSY {
+//			minXSY = v[0] - v[1]
+//			d = i
+//		}
+//	}
+//	maxL := 0
+//	x, y := 0, 0
+//	for i, v := range points {
+//		al := abs(v[0] + v[1] - maxXAY)
+//		bl := abs(v[0] + v[1] - minXAY)
+//		cl := abs(v[0] - v[1] - maxXSY)
+//		dl := abs(v[0] - v[1] - minXSY)
+//		t := max(max(al, bl), max(cl, dl))
+//		if t > maxL {
+//			if t == al {
+//				x, y = a, i
+//			} else if t == bl {
+//				x, y = b, i
+//			} else if t == cl {
+//				x, y = c, i
+//			} else {
+//				x, y = d, i
+//			}
+//			maxL = t
+//		}
+//	}
+//	return x, y
+//}
