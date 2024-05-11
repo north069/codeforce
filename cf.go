@@ -20,17 +20,3 @@ func main() {
 func solve(in *bufio.Reader, out *bufio.Writer) {
 
 }
-
-func max(i, j int) int {
-	if i > j {
-		return i
-	} else {
-		return j
-	}
-}
-func min(i, j int) int {
-	if i > j {
-		return j
-	}
-	return i
-}
