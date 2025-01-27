@@ -23,6 +23,33 @@ package main
 //	return f.pre(r) - f.pre(l-1)
 //}
 
+// 单点修改，区间查询最值树状数组
+// type fenwick struct {
+// 	P []int
+// 	T []int
+// }
+
+// func newFenwick(n int) fenwick {
+// 	return fenwick{make([]int, n+1), make([]int, n+1)}
+// }
+// func (f fenwick) add(x, v int) {
+// 	f.P[x] = max(f.P[x], v)
+// 	for ; x < len(f.T); x += x & -x {
+// 		f.T[x] = max(f.T[x], v)
+// 	}
+// }
+// func (f fenwick) query(l, r int) int {
+// 	if r < l {
+// 		return 0
+// 	}
+// 	lowBit := r & -r
+// 	if r-lowBit+1 >= l {
+// 		return max(f.T[r], f.query(l, r-lowBit))
+// 	} else {
+// 		return max(f.P[r], f.query(l, r-1))
+// 	}
+// }
+
 //离散化数组，最大的是1
 //func resultArray(nums []int) []int {
 //	n := len(nums)
